@@ -3,8 +3,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 3000;
 require('dotenv').config();
-const indexRoute = require('../TechNirvana/src/routes/index');
-const sequelize = require('../TechNirvana/config/config');
+const indexRoute = require('../TN/src/routes/index');
+const sequelize = require('../TN/config/config');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
