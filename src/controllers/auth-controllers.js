@@ -10,14 +10,14 @@ const registerUser = async (req, res, next) => {
     try {
         const { name, email, password } = req.body;
         //check if the email exists or not
-        const userExist = await db.user.findOne({ where: { email } });
+        const userExist = await db.User.findOne({ where: { email } });
         if (userExist) {
             //CONFLICT: 409;
             sendErrorResponse(res, HttpStatus.CONFLICT, 'Conflict');
 
         };
 
-        await db.user.create({
+        await db.User.create({
             name,
             email,
             password: await bcrypt.hash(password, 15),
@@ -37,7 +37,7 @@ const registerUser = async (req, res, next) => {
 const signInUser = async (req, res, next) => {
     try {
         const { email, password } = req.body;
-        const user = await db.user.findOne({ where: { email } });
+        const user = await db.User.findOne({ where: { email } });
         if (!user) {
             //UNAUTHORIZED: 401;
             sendErrorResponse(res, HttpStatus.UNAUTHORIZED, 'E-mail Not Found');
@@ -52,7 +52,7 @@ const signInUser = async (req, res, next) => {
 
         }
 
-        //Authenticate  the user by setting a JWT token and send it to the client side
+        // /Authenticate  the user by setting a JWT token and send it to the client side
 
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET_KEY, {
             expiresIn: process.env.JWT_EXPIRES_IN
@@ -66,8 +66,8 @@ const signInUser = async (req, res, next) => {
         });
     } catch (err) {
         console.error("Error signing in:", err);
-       //INTERNAL_SERVER_ERROR: 500
-       sendErrorResponse(res, HttpStatus.INTERNAL_SERVER_ERROR, 'Error in signing in');
+        //INTERNAL_SERVER_ERROR: 500
+        sendErrorResponse(res, HttpStatus.INTERNAL_SERVER_ERROR, 'Error in signing in');
 
     }
 }
