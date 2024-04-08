@@ -10,7 +10,7 @@ testimonialController.addTestimonial = async (req, res, next) => {
         let info = {
             name: req.body.name,
             designation: req.body.designation,
-            // image: req.file.path,
+            image: req.file.path,
             content: req.body.content
         };
         const output = await testimonial.create(info);

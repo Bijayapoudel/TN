@@ -7,7 +7,7 @@ blogController.addBlog = async (req, res, next) => {
     try {
         let info = {
             title: req.body.title,
-            // image: req.file.path, 
+            image: req.file.path, 
             description: req.body.description,
             metaData: req.body.metaData
         }

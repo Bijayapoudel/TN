@@ -12,7 +12,7 @@ serviceController.addService = async (req, res,next) => {
         let info = {
             title: req.body.title,
             description: req.body.description,
-            // image: req.file.path,
+            image: req.file.path,
         };
         const output = await service.create(info);
         sendResponse(res, HttpStatus.OK, output);
